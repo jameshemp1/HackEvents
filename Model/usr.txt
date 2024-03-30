@@ -1,0 +1,8 @@
+The following SQL commands create and configure the user for accessing the DB, you will need to change the password in /inc/config.php
+This can also be done using the UI in phpmyadmin and setting the values to match the ones in config.php or vice versa
+
+GRANT USAGE ON *.* TO `events_user`@`localhost`;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `htaevents`.* TO `events_user`@`localhost`;
+
+GRANT SELECT (`date`, `description`, `time`, `title`), INSERT (`date`, `description`, `time`, `title`), UPDATE (`date`, `description`, `time`, `title`), REFERENCES (`date`, `description`, `time`, `title`) ON `htaevents`.`events` TO `events_user`@`localhost`;
