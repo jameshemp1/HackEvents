@@ -21,7 +21,8 @@
             <input type=\"hidden\" name=\"set\" value=\"u\">
             <button type=\"submit\">Update</button>
             </form>
-            <form action=\"index.php/events/update\" method=\"post\">       
+            <form action=\"index.php/events/update\" method=\"post\">
+            <input type=\"hidden\" name=\"_method\" value=\"post\">       
             <input type=\"hidden\" name=\"id\" value=\"\">
                 <label for=\"title\">Title:</label>
                 <input type=\"text\" name=\"title\">
@@ -39,7 +40,8 @@
             <input type=\"hidden\" name=\"set\" value=\"c\">
             <button type=\"submit\">Create</button>
             </form>
-            <form action=\"index.php/events/update\" method=\"put\">
+            <form action=\"index.php/events/update\" method=\"post\">
+            <input type=\"hidden\" name=\"_method\" value=\"put\">
                 <label for=\"id\">ID:</label>
                 <input type=\"number\" name=\"id\">        
                 <label for=\"title\">Title:</label>

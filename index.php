@@ -1,41 +1,57 @@
-
 <?php
-require __DIR__ . "/inc/bootstrap.php";
-require PROJECT_ROOT_PATH . "/Controller/Api/EventController.php";
+
 #get uri segments
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
-
-$objFeedController = new EventController();
 #redirect to base page
+$uri = explode( '/', $uri );
 if (sizeof($uri) < 5){
     header("Location: http://localhost/HackEvents/index.php/events/list");
     exit();
 } 
-#control for updating/creating entries
-if ($uri[4] == "update"){
+#set url for hitting api
+$url = "localhost/HackEvents/api.php/".$uri[3]."/".$uri[4];
+$curl = curl_init();
+
+$changed = false;
+
+if ( $uri[4] == "update"){
     $title = trim($_POST["title"]);
     $desc = trim($_POST["desc"]);
     $date = $_POST["date"];
     $time = $_POST["time"];
+    $id = $_POST["id"]; 
+    if ( strtoupper($_POST["_method"]) == 'POST' ){
+        curl_setopt($curl, CURLOPT_POST, TRUE);
+        $url = $url."?title=".$title."&desc=".$desc."&date=".$date."&time=".$time;
+        curl_setopt($curl, CURLOPT_URL, $url);
+    } else if ( strtoupper($_POST["_method"]) == 'PUT' ){
+        curl_setopt($curl, CURLOPT_PUT, TRUE);
+        $url = $url."?id=".$id."&title=".$title."&desc=".$desc."&date=".$date."&time=".$time;
+        curl_setopt($curl, CURLOPT_URL, $url);
+    }
+    $changed = true;
+} else if ( $uri[4] == "delete" ){
     $id = $_POST["id"];
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+    $url = $url."?id=$id";
+    curl_setopt($curl, CURLOPT_URL, $url);
+    $changed = true;
+} 
 
-    if ( ($title == "") || ($desc == "") || ($date == "") || ($time == "")){
-        printf("Not Enough inputs");
-    } else if ( $id == "" ){
-        $objFeedController->createEvents($title, $desc, $date, $time);
-    } else {
-        $objFeedController->updateEvents($id, $title, $desc, $date, $time);
-    } 
-} else if ($uri[4] == "delete"){
-    $id = $_POST["id"];
-    $_SERVER["REQUEST_METHOD"] = "DELETE"; #change the method to DELETE, php forms cannot use the delete method 
-    $objFeedController->deleteEvents($id);
+if ( $changed ){
+    curl_exec($curl);
+    $url = "localhost/HackEvents/api.php/events/list";
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+} else {
+    curl_setopt($curl, CURLOPT_URL, $url);
 }
-#base page alwasy displays event table
-$_SERVER["REQUEST_METHOD"] = "GET";
-$sql = $objFeedController->listEvents();
-$sql = json_decode($sql, true);
+
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+$sqlraw = curl_exec($curl);
+curl_close($curl);
+$sql = json_decode($sqlraw, true);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +66,6 @@ $sql = json_decode($sql, true);
     </nav>
         <body style="background-color: #faebd7;">
         <div class="container">
-            
             <table class="table table-bordered table-striped" style="border: 1px solid black">
                 <thead class="thead-dark">
                     <tr>

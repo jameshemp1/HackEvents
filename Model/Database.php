@@ -14,7 +14,7 @@ class Database
             throw new Exception($e->getMessage());   
         }			
     }
-    #gets all entires, limits to $limit in EventController.listEvents() 
+    #gets all entires, sorts by date
     public function select($query = "" , $params = [])
     {
         try {

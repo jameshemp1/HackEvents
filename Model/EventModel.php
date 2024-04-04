@@ -6,7 +6,7 @@ class EventModel extends Database
 {
     public function getEvents($limit)
     {
-        return $this->select("SELECT * FROM events LIMIT ?", ["i", $limit]);
+        return $this->select("SELECT * FROM events ORDER BY date DESC");
     }
 
     public function updateEvents($id, $title, $desc, $date, $time)
