@@ -23,10 +23,12 @@ if ( $uri[4] == "update"){
     if ( strtoupper($_POST["_method"]) == 'POST' ){
         curl_setopt($curl, CURLOPT_POST, TRUE);
         $url = $url."?title=".$title."&desc=".$desc."&date=".$date."&time=".$time;
+        $url = str_replace(" ", '%20', $url);
         curl_setopt($curl, CURLOPT_URL, $url);
     } else if ( strtoupper($_POST["_method"]) == 'PUT' ){
         curl_setopt($curl, CURLOPT_PUT, TRUE);
         $url = $url."?id=".$id."&title=".$title."&desc=".$desc."&date=".$date."&time=".$time;
+        $url = str_replace(" ", '%20', $url);
         curl_setopt($curl, CURLOPT_URL, $url);
     }
     $changed = true;
@@ -42,6 +44,7 @@ if ( $changed ){
     curl_exec($curl);
     $url = "localhost/HackEvents/api.php/events/list";
     curl_setopt($curl, CURLOPT_URL, $url);
+    #GET is set at init, no curl option for setting the method to GET
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
 } else {
     curl_setopt($curl, CURLOPT_URL, $url);

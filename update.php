@@ -74,7 +74,7 @@
                 </div>
                 </form>
                 <form action=\"index.php/events/update\" method=\"post\">
-            <input type=\"hidden\" name=\"_method\" value=\"put\">
+                    <input type=\"hidden\" name=\"_method\" value=\"put\">
                     <label for=\"id\">ID:</label>
                     <input type=\"number\" name=\"id\">        
                     <label for=\"title\">Title:</label>
