@@ -52,7 +52,7 @@ $sql = json_decode($sql, true);
     </nav> -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -75,7 +75,7 @@ $sql = json_decode($sql, true);
     </nav>
     
         <body style="background-color: #faebd7;">
-        <div class="container">
+        <div class="container p-2">
             
             <table class="table table-bordered table-striped" style="border: 1px solid black">
                 <thead class="thead-dark">

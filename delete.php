@@ -10,7 +10,7 @@
     </nav> -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,9 +32,11 @@
     
     <body style="background-color: #faebd7;">
         <form action="index.php/events/delete" method="post">
+            <div class="text-center py-3">
                 <label for="id">ID:</label>
                 <input type="number" name="id">        
                 <button type="submit">Go</button>
+            </div>
             </form>
         
         </div>
