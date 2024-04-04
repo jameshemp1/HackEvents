@@ -61,6 +61,7 @@
                     <input type=\"time\" name=\"time\">
                     <button type=\"submit\">Go</button>
                 </form>
+                <p>Create a new record, to update an existing record, click on \"Update\"</p>
                 </div>";
             } else {
                 #output for updating entry
@@ -86,6 +87,7 @@
                     <input type=\"time\" name=\"time\">
                     <button type=\"submit\">Go</button>
                 </form>
+                <p>Update an existing record, ID must match the ID of an existing record. To create a new record, click on \"Create\"</p>
                 </div>";
             }
             ?>

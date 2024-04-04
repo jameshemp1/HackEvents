@@ -13,8 +13,7 @@ class EventController extends BaseController
             try {
                 $eventModel = new EventModel();
 
-                $intLimit = 10;
-                $arrEvents = $eventModel->getEvents($intLimit);
+                $arrEvents = $eventModel->getEvents();
                 $responseData = json_encode($arrEvents);
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';

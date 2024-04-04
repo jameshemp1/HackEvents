@@ -4,7 +4,7 @@ require_once PROJECT_ROOT_PATH . "/Model/Database.php";
 
 class EventModel extends Database
 {
-    public function getEvents($limit)
+    public function getEvents()
     {
         return $this->select("SELECT * FROM events ORDER BY date DESC");
     }
